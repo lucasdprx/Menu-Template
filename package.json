@@ -1,0 +1,12 @@
+{
+  "name": "com.ptrkgames.menu-template",
+  "version": "1.0.0",
+  "displayName": "Menu Template",
+  "unity": "6000.0",
+  "description": "Ready-to-use menu system. Includes settings management, language switching, and key remapping via the new Input System.",
+  "dependencies": 
+  {
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.inputsystem": "1.14.2"
+  }
+}
