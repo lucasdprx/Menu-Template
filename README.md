@@ -1,31 +1,30 @@
 # Menu Template
 
-Un système de menu d'interface utilisateur (UI) prêt à l'emploi pour Unity. Il fournit une fondation solide pour les jeux nécessitant un menu principal avec la gestion des paramètres, le changement de langue et la reconfiguration des touches.
+A ready-to-use user interface (UI) menu system for Unity. It provides a solid foundation for games requiring a main menu with settings management, language switching, and key remapping.
 
-## Prérequis Techniques
+## Technical Requirements
 
-Ce package est conçu pour **Unity 6000.0** et s'appuie sur les technologies suivantes :
-* **Input System** (`com.unity.inputsystem`) pour la gestion et la reconfiguration des touches.
-* **Newtonsoft JSON** (`com.unity.nuget.newtonsoft-json`) pour la localization.
+This package is designed for **Unity 6000.0** and relies on the following technologies:
+* **Input System** (`com.unity.inputsystem`) for input management and key remapping.
+* **Newtonsoft JSON** (`com.unity.nuget.newtonsoft-json`) for JSON data handling (settings serialization and custom localization).
 
-*Note : Ces dépendances sont inscrites dans le `package.json` et seront résolues automatiquement par Unity lors de l'installation.*
+*Note: These dependencies are listed in the `package.json` and will be automatically resolved by Unity during installation.*
 
 ## Installation via Git URL
 
-Utilisez le Unity Package Manager (UPM) pour installer ce package directement depuis GitHub.
+Use the Unity Package Manager (UPM) to install this package directly from GitHub.
 
-1. Dans Unity, ouvrez `Window > Package Manager`.
-2. Cliquez sur l'icône `+` dans le coin supérieur gauche.
-3. Sélectionnez `Add package from git URL...`.
-4. Renseignez l'URL de votre dépôt :
-   `https://github.com/lucasdprx/Menu-Template.git`
+1. In Unity, open `Window > Package Manager`.
+2. Click the `+` icon in the top left corner.
+3. Select `Add package from git URL...`.
+4. Enter the repository URL: `https://github.com/lucasdprx/Menu-Template.git`
 
-*(Optionnel) Pour cibler une version spécifique, ajoutez `#v1.0.0` à la fin de l'URL.*
+*(Optional) To target a specific version, append `#v1.0.0` to the end of the URL.*
 
-## Utilisation Rapide
+## Quick Start
 
-Pour intégrer le menu dans votre scène :
-1. Allez dans `Packages/Menu-Template/Runtime/Menu/Prefabs`.
-2. Glissez-déposez le Prefab `CanvasMenu` dans votre hiérarchie.
-3. Assurez-vous d'avoir un composant `EventSystem` fonctionnel dans votre scène.
-4. Aller dans les settings de changement de touche dans la prefab et renseigner votre InputActionAsset ainsi que les touches associé au rebind.
+To integrate the menu into your scene:
+1. Navigate to `Packages/Menu-Template/Runtime/Menu/Prefabs`.
+2. Drag and drop the `CanvasMenu` Prefab into your Hierarchy.
+3. Ensure you have a functional `EventSystem` component in your scene.
+4. Access the key binding settings on the prefab via the Inspector, and assign your `InputActionAsset` along with the specific input actions associated with the rebinds.
