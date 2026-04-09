@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
@@ -148,7 +149,7 @@ namespace Menu.Settings.Localization
                     Dictionary<string, string> fileData = ReadJsonDictionary(filePath);
                     fileData[key] = translationsByLanguage.GetValueOrDefault(code, string.Empty);
 
-                    string json = Localization.ConvertDictionaryToJson(fileData);
+                    string json = JsonConvert.SerializeObject(fileData, Formatting.Indented);
                     File.WriteAllText(filePath, json);
 
                     string assetPath = ToAssetPath(filePath);
@@ -192,7 +193,7 @@ namespace Menu.Settings.Localization
                 return new Dictionary<string, string>();
             }
 
-            Dictionary<string, string> parsed = Localization.ConvertJsonToDictionary(json);
+            Dictionary<string, string> parsed = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             return parsed ?? new Dictionary<string, string>();
         }
 

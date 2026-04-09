@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace Menu.Settings.Localization
@@ -63,43 +64,13 @@ namespace Menu.Settings.Localization
                 Debug.LogError($"Language file not found in Resources at path: {fullPath}");
                 return;
             }
-            texts = ConvertJsonToDictionary(textAsset.text);
+            texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
             Resources.UnloadAsset(textAsset);
         }
     
         public static string Read(string key)
         {
             return texts.TryGetValue(key, out string value) ? value : $"[MISSING:{key}]";
-        }
-    
-        public static Dictionary<string, string> ConvertJsonToDictionary(string json)
-        {
-            Dictionary<string, string> textDict = new();
-            json = json.Trim().TrimStart('{').TrimEnd('}');
-            string[] pairs = json.Split(',');
-        
-            foreach (string pair in pairs)
-            {
-                string[] keyValue = pair.Split(':');
-                if (keyValue.Length == 2)
-                {
-                    string key = keyValue[0].Trim().Trim('"');
-                    string value = keyValue[1].Trim().Trim('"');
-                    textDict[key] = value;
-                }
-            }
-            return textDict;
-        }
-
-        public static string ConvertDictionaryToJson(Dictionary<string, string> dict)
-        {            
-            string json = "{\n";
-            foreach (KeyValuePair<string, string> entry in dict)
-            {
-                json += $"  \"{entry.Key}\": \"{entry.Value}\",\n";
-            }
-            json = json.TrimEnd(',', '\n') + "\n}";
-            return json;
         }
     }
 }

@@ -25,7 +25,7 @@ Utilisez le Unity Package Manager (UPM) pour installer ce package directement de
 ## Utilisation Rapide
 
 Pour intégrer le menu dans votre scène :
-1. Allez dans `Packages/Menu-Template/Runtime/Prefabs`.
+1. Allez dans `Packages/Menu-Template/Runtime/Menu/Prefabs`.
 2. Glissez-déposez le Prefab `CanvasMenu` dans votre hiérarchie.
 3. Assurez-vous d'avoir un composant `EventSystem` fonctionnel dans votre scène.
 4. Aller dans les settings de changement de touche dans la prefab et renseigner votre InputActionAsset ainsi que les touches associé au rebind.
