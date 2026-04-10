@@ -77,7 +77,7 @@ namespace Menu.Settings.Localization
 
             if (languageFileByCode.Count == 0)
             {
-                EditorGUILayout.HelpBox("Aucun fichier de langue trouve dans Assets/Resources/Localization.", MessageType.Warning);
+                EditorGUILayout.HelpBox("Aucun fichier de langue trouve dans Packages/Menu-Template/Runtime/Resources/Localization.", MessageType.Warning);
                 return;
             }
 
@@ -176,7 +176,11 @@ namespace Menu.Settings.Localization
 
         private static IEnumerable<string> GetLanguageJsonPaths()
         {
-            string directory = Path.Combine(Application.dataPath, "Resources", "Localization");
+            string directory = Path.Combine(Application.dataPath, "Packages/Menu-Template/Runtime/Resources", "Localization");
+            if (!Directory.Exists(directory))
+            {
+                directory = Path.Combine(Application.dataPath.Replace("Assets", "Packages"), "Menu-Template/Runtime/Resources", "Localization");
+            }
             return !Directory.Exists(directory) ? Array.Empty<string>() : Directory.GetFiles(directory, "*.json", SearchOption.TopDirectoryOnly);
         }
 
@@ -207,7 +211,7 @@ namespace Menu.Settings.Localization
                 return string.Empty;
             }
 
-            return "Assets" + normalizedFilePath.Substring(normalizedDataPath.Length);
+            return "Assets" + normalizedFilePath[normalizedDataPath.Length..];
         }
     }
 }
