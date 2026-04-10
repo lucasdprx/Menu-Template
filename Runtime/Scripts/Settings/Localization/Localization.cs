@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Menu.Settings.Localization
