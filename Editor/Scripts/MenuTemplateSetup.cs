@@ -5,7 +5,7 @@ namespace Menu
 {
     public static class MenuTemplateSetup
     {
-        private const string PrefabPath = "Packages/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab";
+        private const string PrefabPath = "Packages/Menu Template/Runtime/Prefabs/Menu/MenuTemplate.prefab";
 
         [MenuItem("Menu Template/Create Menu Template", false, 10)]
         public static void CreateMenuInScene()
