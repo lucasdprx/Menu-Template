@@ -179,7 +179,7 @@ namespace Menu.Settings.Localization
             string directory = Path.Combine(Application.dataPath, "Packages/Menu-Template/Runtime/Resources", "Localization");
             if (!Directory.Exists(directory))
             {
-                directory = Path.Combine(Application.dataPath.Replace("Assets", "Packages"), "Menu-Template/Runtime/Resources", "Localization");
+                directory = Path.Combine(Application.dataPath.Replace("Assets", "Packages"), "com.ptrkgames.menu-template/Runtime/Resources", "Localization");
             }
             return !Directory.Exists(directory) ? Array.Empty<string>() : Directory.GetFiles(directory, "*.json", SearchOption.TopDirectoryOnly);
         }
