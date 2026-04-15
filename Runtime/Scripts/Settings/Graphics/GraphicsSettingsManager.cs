@@ -11,11 +11,20 @@ namespace Menu.Settings.Graphics
         private void Awake()
         {
             Resolutions = Screen.resolutions.GroupBy(r => new { r.width, r.height }).Select(g => g.First()).ToArray();
+
+            for (int i = 0; i < Resolutions.Length / 2; i++) // Set higher resolutions first
+            {
+                (Resolutions[Resolutions.Length - 1 - i], Resolutions[i]) = (Resolutions[i], Resolutions[Resolutions.Length - 1 - i]);
+            }
         }
 
         public static void SetResolution(int index)
         {
-            if (index < 0 || index >= Resolutions.Length) return;
+            if (index < 0 || index >= Resolutions.Length)
+            {
+                Debug.LogError($"Index invalid for resolution: {index}");
+                return;
+            }
     
             Resolution resolution = Resolutions[index];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
@@ -55,7 +64,7 @@ namespace Menu.Settings.Graphics
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = 240;
                     break;
-                case 5: // Illimité
+                case 5: // Unlimited
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = -1;
                     break;
@@ -67,6 +76,6 @@ namespace Menu.Settings.Graphics
     
         public static int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : Resolutions.Length - 1;
         public static bool GetSavedFullScreen() => PlayerPrefs.HasKey(SettingsKeys.FullScreen) ? PlayerPrefs.GetInt(SettingsKeys.FullScreen) == 1 : Screen.fullScreen;
-        public static int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : 3; // Par défaut 120 FPS
+        public static int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : 3; // Default 120 FPS
     }
 }

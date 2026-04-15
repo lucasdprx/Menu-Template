@@ -19,10 +19,13 @@ namespace Menu.Settings.Audio
 
         private void SetVolume(string key, float volume)
         {
-            if (audioMixer == null || string.IsNullOrEmpty(key)) 
+            if (audioMixer == null || string.IsNullOrEmpty(key))
+            {
+                Debug.LogError($"AudioMixer reference is missing or key is null for {key}");
                 return;
-    
-            // Conversion linéaire vers logarithmique
+            }
+
+            // Conversion from linear to logarithmic
             float dbVolume = Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
             audioMixer.SetFloat(key, dbVolume);
             

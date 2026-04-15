@@ -50,7 +50,6 @@ namespace Menu.Managers
                 if (currentSelectable != null)
                 {
                     currentSelectable.Select();
-                    Debug.Log(currentSelectable);
                 }
             }
             else

@@ -11,10 +11,10 @@ namespace Menu.Settings.Localization
     public class Localization : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown dropdown;
+        [SerializeField] private string languageFolder = "Localization";
 
         public static event Action OnLanguageChanged;
-    
-        private const string languageFolderPath = "Localization";
+
         private static Dictionary<string, string> texts = new();
         private readonly Dictionary<string, string> languageNames = new()
         {
@@ -56,13 +56,13 @@ namespace Menu.Settings.Localization
         private void LoadLanguage(int index)
         {
             string languageCode = languageNames.ElementAt(index).Key;
-            string fullPath = $"{languageFolderPath}/{languageCode}";
+            string fullPath = $"{languageFolder}/{languageCode}";
         
             TextAsset textAsset = Resources.Load<TextAsset>(fullPath);
         
             if (textAsset == null)
             {
-                fullPath = $"Assets/Packages/Menu-Template/Runtime/DefaultTranslations/{languageCode}.json";
+                fullPath = $"Assets/Menu-Template/Runtime/DefaultTranslations/{languageCode}.json";
             }
             
             string json = textAsset != null ? textAsset.text : File.ReadAllText(fullPath);

@@ -15,7 +15,11 @@ namespace Menu.Settings.Audio
 
         private void Start()
         {
-            if (audioManager == null) return;
+            if (audioManager == null) 
+            {
+                Debug.LogError("AudioSettingsManager reference is missing in AudioSettingsUI.");
+                return;
+            }
 
             InitializeUI();
             SubscribeEvents();
@@ -35,8 +39,11 @@ namespace Menu.Settings.Audio
 
         private void InitSlider(Slider slider, string key)
         {
-            if (slider == null || string.IsNullOrEmpty(key)) 
+            if (slider == null || string.IsNullOrEmpty(key))
+            {
+                Debug.LogError($"Slider or key is null for {key}");
                 return;
+            }
             
             slider.minValue = 0.0001f; 
             slider.maxValue = 1f; 

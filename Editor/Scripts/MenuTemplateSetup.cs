@@ -11,7 +11,7 @@ namespace Menu
         private const string PrefabPath = "Packages/com.ptrkgames.menu-template/Runtime/Prefabs/Menu/MenuTemplate.prefab";
         
         private const string SourceFolder = "Packages/com.ptrkgames.menu-template/Runtime/DefaultTranslations";
-        private const string SourceFolderAssets = "Assets/Packages/Menu-Template/Runtime/DefaultTranslations";
+        private const string SourceFolderAssets = "Assets/Menu-Template/Runtime/DefaultTranslations";
         private const string TargetFolder = "Assets/Resources/Localization";
 
         [MenuItem("Menu Template/Create Menu Template", false, 10)]
@@ -21,13 +21,13 @@ namespace Menu
 
             if (prefabAsset == null)
             {
-                prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Packages/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab");
-                Debug.Log("[Menu Template] Chemin alternatif tenté : Assets/Packages/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab : " + (prefabAsset != null ? "Reussi" : "Echec"));
+                prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab");
+                Debug.Log("[Menu Template] Alternative path attempted : Assets/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab : " + (prefabAsset != null ? "Reussi" : "Echec"));
             }
 
             if (prefabAsset == null)
             {
-                Debug.LogError($"[Menu Template] Impossible de charger le Prefab. Fichier introuvable à : {PrefabPath}");
+                Debug.LogError($"[Menu Template] Unable to load the Prefab. File not found at : {PrefabPath}");
                 return;
             }
 

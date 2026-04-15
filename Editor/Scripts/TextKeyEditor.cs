@@ -59,7 +59,7 @@ namespace Menu.Settings.Localization
         {
             if (string.IsNullOrWhiteSpace(keyProperty.stringValue))
             {
-                EditorGUILayout.HelpBox("La key de localization est vide.", MessageType.Warning);
+                EditorGUILayout.HelpBox("The localisation key is empty.", MessageType.Warning);
             }
 
             if (Application.isPlaying && !string.IsNullOrWhiteSpace(keyProperty.stringValue))
@@ -77,7 +77,7 @@ namespace Menu.Settings.Localization
 
             if (languageFileByCode.Count == 0)
             {
-                EditorGUILayout.HelpBox("Aucun fichier de langue trouve dans Packages/Menu-Template/Runtime/Resources/Localization.", MessageType.Warning);
+                EditorGUILayout.HelpBox("No language files were found in Assets/Resources/Localization.", MessageType.Warning);
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace Menu.Settings.Localization
             string key = keyProperty.stringValue;
             if (string.IsNullOrWhiteSpace(key))
             {
-                applyMessage = "Impossible d'appliquer: la key est vide.";
+                applyMessage = "Cannot apply: the key is empty.";
                 applyMessageType = MessageType.Error;
                 return;
             }
@@ -164,12 +164,12 @@ namespace Menu.Settings.Localization
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
-                applyMessage = $"Apply termine: {updatedCount} fichier(s) mis a jour.";
+                applyMessage = $"Apply complete: {updatedCount} files updated.";
                 applyMessageType = MessageType.Info;
             }
             catch (Exception exception)
             {
-                applyMessage = $"Erreur pendant l'ecriture des JSON: {exception.Message}";
+                applyMessage = $"Error whilst writing JSON: {exception.Message}";
                 applyMessageType = MessageType.Error;
             }
         }
@@ -178,7 +178,7 @@ namespace Menu.Settings.Localization
         {
             string directory = Path.Combine(Application.dataPath, "Resources", "Localization");
             if (!Directory.Exists(directory))
-                directory = Path.Combine(Application.dataPath + "/Packages/Menu-Template/", "Runtime", "DefaultTranslations");
+                directory = Path.Combine(Application.dataPath + "/Menu-Template/", "Runtime", "DefaultTranslations");
             return !Directory.Exists(directory) ? Array.Empty<string>() : Directory.GetFiles(directory, "*.json", SearchOption.TopDirectoryOnly);
         }
 
