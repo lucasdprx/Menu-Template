@@ -22,5 +22,9 @@
   "Crouch": "S'accroupir",
   "Sprint": "Courir",
   "Interact": "Interagir",
-  "Reset": "Reset"
+  "Reset": "Reset",
+  "Gamepad": "Manette",
+  "Keyboard & Mouse": "Clavier & Souris",
+  "Move": "Déplacer",
+  "Framerate": "Fréquence d'images"
 }

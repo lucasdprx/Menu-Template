@@ -22,5 +22,9 @@
   "Crouch": "Accovacciati",
   "Sprint": "Corri",
   "Interact": "Interagisci",
-  "Reset": "Reimposta"
+  "Reset": "Reimposta",
+  "Gamepad": "Gamepad",
+  "Keyboard & Mouse": "Tastiera & Mouse",
+  "Move": "Spostare",
+  "Framerate": "Frequenza dei fotogrammi"
 }

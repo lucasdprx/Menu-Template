@@ -22,5 +22,9 @@
   "Crouch": "Agacharse",
   "Sprint": "Correr",
   "Interact": "Interactuar",
-  "Reset": "Restablecer"
+  "Reset": "Restablecer",
+  "Gamepad": "Mando",
+  "Keyboard & Mouse": "Teclado & Ratón",
+  "Move": "Mover",
+  "Framerate": "Frecuencia de fotogramas"
 }

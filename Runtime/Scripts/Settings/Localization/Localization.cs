@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using Newtonsoft.Json;
@@ -61,10 +62,12 @@ namespace Menu.Settings.Localization
         
             if (textAsset == null)
             {
-                Debug.LogError($"Language file not found in Resources at path: {fullPath}");
-                return;
+                fullPath = $"Assets/Packages/Menu-Template/Runtime/DefaultTranslations/{languageCode}.json";
             }
-            texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(textAsset.text);
+            
+            string json = textAsset != null ? textAsset.text : File.ReadAllText(fullPath);
+            
+            texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             Resources.UnloadAsset(textAsset);
         }
     

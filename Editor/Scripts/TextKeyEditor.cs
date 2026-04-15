@@ -177,6 +177,8 @@ namespace Menu.Settings.Localization
         private static IEnumerable<string> GetLanguageJsonPaths()
         {
             string directory = Path.Combine(Application.dataPath, "Resources", "Localization");
+            if (!Directory.Exists(directory))
+                directory = Path.Combine(Application.dataPath + "/Packages/Menu-Template/", "Runtime", "DefaultTranslations");
             return !Directory.Exists(directory) ? Array.Empty<string>() : Directory.GetFiles(directory, "*.json", SearchOption.TopDirectoryOnly);
         }
 

@@ -22,5 +22,9 @@
   "Crouch": "Ducken",
   "Sprint": "Sprinten",
   "Interact": "Interagieren",
-  "Reset": "Zurücksetzen"
+  "Reset": "Zurücksetzen",
+  "Gamepad": "Gamepad",
+  "Keyboard & Mouse": "Tastatur & Maus",
+  "Move": "Verschieben",
+  "Framerate": "Bildfrequenz"
 }

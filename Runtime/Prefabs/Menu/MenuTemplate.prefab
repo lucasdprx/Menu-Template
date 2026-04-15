@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e850dfeb6ca6943ac7879bdc4c30e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rebind.RebindSaveLoad
-  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7101, type: 3}
   playerPreferenceKey: Rebind
   loadOnEnable: 1
   saveOnDisable: 1
@@ -908,6 +908,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2903165453499285218, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903165453499285218, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903165453499285218, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3391121359663400010, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -991,6 +1003,14 @@ PrefabInstance:
     - target: {fileID: 4834190267198241816, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_fontSize
       value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093228269275877259, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093228269275877259, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5389768376504216431, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_AnchorMax.y
