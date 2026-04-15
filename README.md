@@ -10,7 +10,7 @@ This package is designed for **Unity 6000.0** and relies on the following techno
 
 *Note: These dependencies are listed in the `package.json` and will be automatically resolved by Unity during installation.*
 
-## Installation via Git URL
+## Installation from Git URL
 
 Use the Unity Package Manager (UPM) to install this package directly from GitHub.
 
@@ -23,8 +23,15 @@ Use the Unity Package Manager (UPM) to install this package directly from GitHub
 
 ## Quick Start
 
-To integrate the menu into your scene:
-1. Navigate to `Packages/Menu-Template/Runtime/Menu/Prefabs`.
-2. Drag and drop the `CanvasMenu` Prefab into your Hierarchy.
-3. Ensure you have a functional `EventSystem` component in your scene.
-4. Access the key binding settings on the prefab via the Inspector, and assign your `InputActionAsset` along with the specific input actions associated with the rebinds.
+This package includes custom Editor tools for a seamless and safe setup.
+
+### 1. Scene Integration
+To instantly add the menu to your active scene:
+1. From the top menu bar, select `Menu Template > Create Menu Template`.
+2. Ensure your scene contains a functional `EventSystem` component.
+
+### 2. Input Configuration
+To enable the key remapping features:
+1. Select the instantiated Menu Prefab in your Hierarchy.
+2. Access the key binding settings via the Inspector.
+3. Assign your `InputActionAsset` along with the specific input actions associated with the rebinds.

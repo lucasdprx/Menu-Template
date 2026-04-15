@@ -1,6 +1,8 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 namespace Menu
 {
@@ -34,6 +36,12 @@ namespace Menu
             instance.transform.SetParent(null);
             Undo.RegisterCreatedObjectUndo(instance, "Create Menu Template");
             Selection.activeObject = instance;
+            
+            if (Object.FindFirstObjectByType<EventSystem>() == null)
+            {
+                GameObject eventSystemGO = new("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
+                Undo.RegisterCreatedObjectUndo(eventSystemGO, "Create Event System");
+            }
         }
 
         private static void InstallDefaultTranslations()
