@@ -22,7 +22,6 @@ namespace Menu.Settings.Rebind
             set
             {
                 m_Action = value;
-                UpdateActionLabel();
                 UpdateBindingDisplay();
             }
         }
@@ -48,19 +47,6 @@ namespace Menu.Settings.Rebind
             {
                 m_DisplayStringOptions = value;
                 UpdateBindingDisplay();
-            }
-        }
-
-        /// <summary>
-        /// Text component that receives the name of the action. Optional.
-        /// </summary>
-        public TextMeshProUGUI actionLabel
-        {
-            get => m_ActionLabel;
-            set
-            {
-                m_ActionLabel = value;
-                UpdateActionLabel();
             }
         }
 
@@ -485,11 +471,6 @@ namespace Menu.Settings.Rebind
         [SerializeField]
         private InputBinding.DisplayStringOptions m_DisplayStringOptions;
 
-        [Tooltip("Text label that will receive the name of the action. Optional. Set to None to have the "
-            + "rebind UI not show a label for the action.")]
-        [SerializeField]
-        private TextMeshProUGUI m_ActionLabel;
-
         [Tooltip("Text label that will receive the current, formatted binding string.")]
         [SerializeField]
         private TextMeshProUGUI m_BindingText;
@@ -541,20 +522,10 @@ namespace Menu.Settings.Rebind
         #if UNITY_EDITOR
         protected void OnValidate()
         {
-            UpdateActionLabel();
             UpdateBindingDisplay();
         }
 
         #endif
-
-        private void UpdateActionLabel()
-        {
-            if (m_ActionLabel != null)
-            {
-                var action = m_Action?.action;
-                m_ActionLabel.text = action != null ? action.name : string.Empty;
-            }
-        }
 
         [Serializable]
         public class UpdateBindingUIEvent : UnityEvent<RebindActionUI, string, string, string>
