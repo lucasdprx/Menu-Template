@@ -6,15 +6,22 @@ namespace Menu.Settings.Graphics
 {
     public class GraphicsSettingsManager : MonoBehaviour
     {
-        public static Resolution[] Resolutions;
-    
-        private void Awake()
-        {
-            Resolutions = Screen.resolutions.GroupBy(r => new { r.width, r.height }).Select(g => g.First()).ToArray();
+        public static Resolution[] resolutions;
 
-            for (int i = 0; i < Resolutions.Length / 2; i++) // Set higher resolutions first
+        public static Resolution[] Resolutions
+        {
+            get
             {
-                (Resolutions[Resolutions.Length - 1 - i], Resolutions[i]) = (Resolutions[i], Resolutions[Resolutions.Length - 1 - i]);
+                if (resolutions == null)
+                {
+                    resolutions = Screen.resolutions
+                        .GroupBy(r => new { r.width, r.height })
+                        .Select(g => g.First())
+                        .OrderByDescending(r => r.width)
+                        .ThenByDescending(r => r.height)
+                        .ToArray();
+                }
+                return resolutions;
             }
         }
 
@@ -42,40 +49,56 @@ namespace Menu.Settings.Graphics
 
         public static void SetFramerateLimit(int dropdownIndex)
         {
-            switch (dropdownIndex)
+            FramerateOption option = (FramerateOption)dropdownIndex;
+
+            switch (option)
             {
-                case 0: // VSync
+                case FramerateOption.VSync:
                     QualitySettings.vSyncCount = 1;
-                    Application.targetFrameRate = -1; 
+                    Application.targetFrameRate = -1;
                     break;
-                case 1: // 30 FPS
+                case FramerateOption.FPS_30:
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = 30;
                     break;
-                case 2: // 60 FPS
+                case FramerateOption.FPS_60:
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = 60;
                     break;
-                case 3: // 120 FPS
+                case FramerateOption.FPS_120:
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = 120;
                     break;
-                case 4: // 240 FPS
+                case FramerateOption.FPS_240:
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = 240;
                     break;
-                case 5: // Unlimited
+                case FramerateOption.Unlimited:
                     QualitySettings.vSyncCount = 0;
                     Application.targetFrameRate = -1;
                     break;
+                default:
+                    Debug.LogWarning($"Invalid Framerate : {dropdownIndex}");
+                    return;
             }
-    
+
             PlayerPrefs.SetInt(SettingsKeys.FramerateIndex, dropdownIndex);
             PlayerPrefs.Save();
         }
-    
-        public static int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : Resolutions.Length - 1;
+
+        public static int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : 0;
         public static bool GetSavedFullScreen() => PlayerPrefs.HasKey(SettingsKeys.FullScreen) ? PlayerPrefs.GetInt(SettingsKeys.FullScreen) == 1 : Screen.fullScreen;
-        public static int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : 3; // Default 120 FPS
+        public static int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : (int)FramerateOption.FPS_120; // Default 120 FPS
+
+
+        public enum FramerateOption
+        {
+            VSync = 0,
+            FPS_30 = 1,
+            FPS_60 = 2,
+            FPS_120 = 3,
+            FPS_240 = 4,
+            Unlimited = 5
+        }
     }
 }

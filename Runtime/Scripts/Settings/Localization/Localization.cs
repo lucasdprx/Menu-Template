@@ -59,11 +59,6 @@ namespace Menu.Settings.Localization
             string fullPath = $"{languageFolder}/{languageCode}";
         
             TextAsset textAsset = Resources.Load<TextAsset>(fullPath);
-        
-            if (textAsset == null)
-            {
-                fullPath = $"Assets/Menu-Template/Runtime/DefaultTranslations/{languageCode}.json";
-            }
             
             string json = textAsset != null ? textAsset.text : File.ReadAllText(fullPath);
             
