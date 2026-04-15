@@ -22,10 +22,6 @@ namespace Menu.UI_Element
             {
                 btn.onClick.AddListener(() => OnButtonClicked(btn));
             }
-        }
-
-        private void Start()
-        {
             firstButton.onClick.Invoke();
         }
 
@@ -40,6 +36,11 @@ namespace Menu.UI_Element
 
             if (enableColor)
                 button.GetComponent<Image>().color = selectedColor;
+        }
+
+        public void OnButtonSelected(Button button)
+        {
+            OnButtonClicked(button);
         }
     }
 

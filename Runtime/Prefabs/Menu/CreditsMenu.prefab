@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 4162919326499552426}
   - component: {fileID: 2336666703359555742}
   - component: {fileID: 5710343878316387933}
+  - component: {fileID: 4538539494895923411}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -177,7 +178,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
+    m_SelectedColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -233,6 +234,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6727bfd3052a3ca4c97103522ce6fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonBack
+--- !u!114 &4538539494895923411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650515332087065838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a3139776caa704aad5ed9ff3317c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PTRKGames.MenuTemplate::Menu.FeedBack.UIButtonFeedback
+  enableScaleAnimation: 1
+  scaleMultiplier: {x: 1.15, y: 1.15, z: 1.15}
+  scaleDuration: 0.2
+  scaleEase: 27
+  enableImageAnimation: 1
+  highlightedImageColor: {r: 1, g: 1, b: 1, a: 1}
+  imageColorDuration: 0.2
+  imageColorEase: 6
+  enableTextAnimation: 1
+  highlightedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  textColorEase: 6
+  textColorDuration: 0.05
+  fontSizeMultiplier: 1
+  fontSizeEase: 6
+  enablePunchAnimation: 1
+  punchStrength: 0.1
+  punchDuration: 0.2
+  punchVibrato: 10
+  punchElasticity: 1
+  punchEase: 24
 --- !u!1 &3942206473971788962
 GameObject:
   m_ObjectHideFlags: 0
