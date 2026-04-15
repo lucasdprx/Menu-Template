@@ -20,6 +20,7 @@ namespace Menu.Settings.Localization
         private readonly Dictionary<string, string> languageFileByCode = new();
 
         private string applyMessage = string.Empty;
+        private string newLanguageCode = string.Empty;
         private MessageType applyMessageType = MessageType.None;
 
         private void OnEnable()
@@ -35,6 +36,7 @@ namespace Menu.Settings.Localization
             DrawKeyField();
             DrawValidation();
             DrawTranslationsEditor();
+            DrawAddLanguage();
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -210,6 +212,61 @@ namespace Menu.Settings.Localization
             }
 
             return "Assets" + normalizedFilePath[normalizedDataPath.Length..];
+        }
+
+        private void DrawAddLanguage()
+        {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("Global Settings", EditorStyles.boldLabel);
+            EditorGUILayout.BeginHorizontal();
+
+            newLanguageCode = EditorGUILayout.TextField("New Language Code", newLanguageCode);
+
+            using (new EditorGUI.DisabledScope(string.IsNullOrWhiteSpace(newLanguageCode)))
+            {
+                if (GUILayout.Button("Add Language", GUILayout.Width(120)))
+                {
+                    CreateLanguageFile(newLanguageCode.Trim().ToLowerInvariant());
+                }
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void CreateLanguageFile(string code)
+        {
+            string directory = Path.Combine(Application.dataPath, "Resources", "Localization");
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            string filePath = Path.Combine(directory, $"{code}.json");
+
+            if (File.Exists(filePath))
+            {
+                applyMessage = $"Cannot add: Language '{code}' already exists.";
+                applyMessageType = MessageType.Warning;
+                return;
+            }
+
+            try
+            {
+                File.WriteAllText(filePath, "{\n}");
+                AssetDatabase.Refresh();
+
+                newLanguageCode = string.Empty;
+                ReloadTranslations();
+
+                applyMessage = $"Language '{code}' added successfully.";
+                applyMessageType = MessageType.Info;
+            }
+            catch (Exception exception)
+            {
+                applyMessage = $"Error creating language file: {exception.Message}";
+                applyMessageType = MessageType.Error;
+            }
         }
     }
 }
