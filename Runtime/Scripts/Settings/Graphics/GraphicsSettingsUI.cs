@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu.Settings.Graphics
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 {
     public class GraphicsSettingsUI : MonoBehaviour
     {

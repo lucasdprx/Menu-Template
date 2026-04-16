@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-namespace Menu
+namespace PTRKGames.MenuTemplate.Editor
 {
     public static class MenuTemplateSetup
     {

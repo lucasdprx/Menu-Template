@@ -1,13 +1,14 @@
-﻿using UnityEditor;
+﻿using PTRKGames.MenuTemplate.Runtime.FeedBack;
+using UnityEditor;
 
 
-namespace Menu.FeedBack
+namespace PTRKGames.MenuTemplate.Editor.FeedBack
 {
     #if DOTWEEN
     // Custom inspector pour le script UIButtonFeedback
     // Ce script a été généré par une IA
     [CustomEditor(typeof(UIButtonFeedback))]
-    public class UIButtonFeedbackEditor : Editor
+    public class UIButtonFeedbackEditor : UnityEditor.Editor
     {
         // État d'ouverture des menus déroulants
         private bool showTransform;

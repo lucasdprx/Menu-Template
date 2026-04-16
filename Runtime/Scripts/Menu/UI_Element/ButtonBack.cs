@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu.UI_Element
+namespace PTRKGames.MenuTemplate.Runtime.UI_Element
 {
     [RequireComponent(typeof(Button))]
     public class ButtonBack : MonoBehaviour

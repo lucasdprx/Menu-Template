@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu.FeedBack
+namespace PTRKGames.MenuTemplate.Runtime.FeedBack
 {
     public static class DOTweenExtension
     {

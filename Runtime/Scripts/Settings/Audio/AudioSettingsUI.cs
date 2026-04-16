@@ -1,8 +1,8 @@
+using PTRKGames.MenuTemplate.Runtime.Data;
 using UnityEngine;
-using Menu.Data;
 using UnityEngine.UI;
 
-namespace Menu.Settings.Audio
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Audio
 {
     public class AudioSettingsUI : MonoBehaviour
     {

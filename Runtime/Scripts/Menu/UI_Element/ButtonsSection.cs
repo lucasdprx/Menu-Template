@@ -4,7 +4,7 @@ using UnityEngine;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
-namespace Menu.UI_Element
+namespace PTRKGames.MenuTemplate.Runtime.UI_Element
 {
     public class ButtonsSection : MonoBehaviour
     {

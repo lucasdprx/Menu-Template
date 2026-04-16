@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Menu.Settings.Rebind
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Rebind
 {
     /// <summary>
     /// A reusable component with a self-contained UI for rebinding a single action.

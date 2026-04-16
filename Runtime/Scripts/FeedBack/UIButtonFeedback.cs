@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Menu.FeedBack
+namespace PTRKGames.MenuTemplate.Runtime.FeedBack
 {
     #if DOTWEEN
     [RequireComponent(typeof(Button))]

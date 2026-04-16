@@ -1,17 +1,18 @@
 ﻿#if UNITY_EDITOR
+using PTRKGames.MenuTemplate.Runtime.Settings.Rebind;
 using UnityEditor;
 using UnityEngine;
 
 ////TODO: support multi-object editing
 
-namespace Menu.Settings.Rebind
+namespace PTRKGames.MenuTemplate.Editor.Settings.Rebind
 {
     /// <summary>
     /// A custom inspector for <see cref="RebindActionUI"/> which provides a more convenient way for
     /// picking the binding which to rebind.
     /// </summary>
     [CustomEditor(typeof(RebindActionUI))]
-    public class RebindActionUIEditor : Editor
+    public class RebindActionUIEditor : UnityEditor.Editor
     {
         protected void OnEnable()
         {

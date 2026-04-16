@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Menu.Settings.Rebind
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Rebind
 {
     /// <summary>
     /// This is an example for how to override the default display behavior of bindings. The component

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Menu.Settings.Localization
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Localization
 {
     public class TextKey : MonoBehaviour
     {

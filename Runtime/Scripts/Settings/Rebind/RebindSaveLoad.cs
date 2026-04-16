@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Menu.Settings.Rebind
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Rebind
 {
     public class RebindSaveLoad : MonoBehaviour
     {

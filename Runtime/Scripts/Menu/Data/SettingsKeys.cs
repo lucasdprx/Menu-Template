@@ -1,4 +1,4 @@
-﻿namespace Menu.Data
+﻿namespace PTRKGames.MenuTemplate.Runtime.Data
 {
     public static class SettingsKeys
     {

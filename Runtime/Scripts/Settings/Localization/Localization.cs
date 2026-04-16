@@ -6,7 +6,7 @@ using TMPro;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Menu.Settings.Localization
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Localization
 {
     public class Localization : MonoBehaviour
     {

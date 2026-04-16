@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Menu.Managers
+namespace PTRKGames.MenuTemplate.Runtime.Managers
 {
     public class MainMenuManager : MonoBehaviour
     {

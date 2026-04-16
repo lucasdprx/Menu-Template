@@ -1,8 +1,8 @@
 using System.Linq;
 using UnityEngine;
-using Menu.Data;
+using PTRKGames.MenuTemplate.Runtime.Data;
 
-namespace Menu.Settings.Graphics
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 {
     public class GraphicsSettingsManager : MonoBehaviour
     {

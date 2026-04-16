@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using PTRKGames.MenuTemplate.Runtime.Settings.Localization;
 using UnityEditor;
 using UnityEngine;
 
-namespace Menu.Settings.Localization
+namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
 {
     [CustomEditor(typeof(TextKey))]
     [CanEditMultipleObjects]
-    public class TextKeyEditor : Editor
+    public class TextKeyEditor : UnityEditor.Editor
     {
         private const string KeyPropertyName = "key";
 
@@ -68,7 +69,7 @@ namespace Menu.Settings.Localization
             {
                 EditorGUILayout.Space(4);
                 EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
-                EditorGUILayout.HelpBox(Localization.Read(keyProperty.stringValue), MessageType.None);
+                EditorGUILayout.HelpBox(Runtime.Settings.Localization.Localization.Read(keyProperty.stringValue), MessageType.None);
             }
         }
 

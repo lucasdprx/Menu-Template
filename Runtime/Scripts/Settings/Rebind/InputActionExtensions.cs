@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.InputSystem;
 
-namespace Menu.Settings.Rebind
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Rebind
 {
     public static class InputActionExtensions
     {

@@ -1,9 +1,8 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu.UI_Element
+namespace PTRKGames.MenuTemplate.Runtime.UI_Element
 {
     public class SliderPercent : MonoBehaviour
     {

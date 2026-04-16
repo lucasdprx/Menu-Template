@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Menu.Settings.Rebind
+namespace PTRKGames.MenuTemplate.Runtime.Settings.Rebind
 {
     /// <summary>
     /// Common binding UI helper to allow editor composition.
