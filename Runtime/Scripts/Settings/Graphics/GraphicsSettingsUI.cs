@@ -23,8 +23,8 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
                 return;
             }
             
-            InitializeUI();
             SubscribeEvents();
+            InitializeUI();
         }
 
         protected virtual void OnDestroy()

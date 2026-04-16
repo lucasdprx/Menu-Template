@@ -55,11 +55,11 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: 29a78cbb747a4f946ab7b12fd9a138be
-    name: General
+    name: PtrkMenu_General
   - guid: ea9a74c070ade2e4b96dd588ba474e81
-    name: Music
+    name: PtrkMenu_Music
   - guid: 6dc302e34738d664790409c58a3ca64a
-    name: SFX
+    name: PtrkMenu_SFX
   m_AudioMixerGroupViews:
   - guids:
     - 7e0109c2606cc8e46b0b1cec5156cdaa
