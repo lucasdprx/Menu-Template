@@ -1,6 +1,6 @@
 {
   "name": "com.ptrkgames.menu-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "Menu Template",
   "unity": "6000.0",
   "license": "MIT",
@@ -14,5 +14,12 @@
   {
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.inputsystem": "1.14.2"
-  }
+  },
+  "samples" : [
+    {
+      "displayName": "Menu Demo",
+      "description": "A complete scene showing the menu, settings, and rebind system in action.",
+      "path": "Samples~"
+    }
+  ]
 }
