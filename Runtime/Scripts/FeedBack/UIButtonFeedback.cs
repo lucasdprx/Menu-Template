@@ -154,5 +154,14 @@ namespace PTRKGames.MenuTemplate.Runtime.FeedBack
             if (label != null) label.DOKill();
         }
     }
+    #else
+    [RequireComponent(typeof(Button))]
+    public class UIButtonFeedback : MonoBehaviour
+    {
+        #pragma warning disable CS0414
+        [SerializeField, Tooltip("Installez DOTween pour activer le feedback visuel.")]
+        private string DOTweenMissingInfo = "DOTween n'est pas détecté. L'animation des boutons est désactivée.";
+        #pragma warning restore CS0414
+    }
 #endif
 }

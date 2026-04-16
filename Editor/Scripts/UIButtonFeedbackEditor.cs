@@ -130,7 +130,7 @@ namespace PTRKGames.MenuTemplate.Editor.FeedBack
     }
     #else
     [CustomEditor(typeof(UIButtonFeedback))]
-    public class UIButtonFeedbackEditor : Editor
+    public class UIButtonFeedbackEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
