@@ -3,36 +3,40 @@ using UnityEngine;
 
 namespace PTRKGames.MenuTemplate.Runtime.Settings.Localization
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class TextKey : MonoBehaviour
     {
-        [SerializeField] private string key;
-        private TextMeshProUGUI text;
+        [SerializeField] protected string key;
+        protected TextMeshProUGUI text;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             text = GetComponent<TextMeshProUGUI>();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
-            Localization.OnLanguageChanged += UpdateText;
+            LocalizationManager.OnLanguageChanged += UpdateText;
             UpdateText();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
-            Localization.OnLanguageChanged -= UpdateText;
+            LocalizationManager.OnLanguageChanged -= UpdateText;
         }
 
-        private void UpdateText()
+        protected virtual void UpdateText()
         {
+            if (text == null) 
+                return;
+
             if (string.IsNullOrEmpty(key))
             {
-                Debug.LogError("Localization key is null or empty on " + gameObject.name);
+                Debug.LogWarning($"Localization key is missing on GameObject: {gameObject.name}");
                 return;
             }
         
-            text.text = Localization.Read(key);
+            text.text = LocalizationManager.Read(key);
         }
     }
 }

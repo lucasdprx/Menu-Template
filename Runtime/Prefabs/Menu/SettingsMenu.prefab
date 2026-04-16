@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SliderPercent
   textPercent: {fileID: 3214517684780588813}
+  suffix: '%'
 --- !u!1 &150907292790299712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,6 +1297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SliderPercent
   textPercent: {fileID: 5595680619212101007}
+  suffix: '%'
 --- !u!1 &842791014118063573
 GameObject:
   m_ObjectHideFlags: 0
@@ -6646,6 +6648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SliderPercent
   textPercent: {fileID: 5961437086564994694}
+  suffix: '%'
 --- !u!1 &5017282069497919756
 GameObject:
   m_ObjectHideFlags: 0
@@ -10586,13 +10589,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonsSection
   sections:
   - button: {fileID: 2371277057875620256}
-    gameObject: {fileID: 6518060779524320833}
+    sectionObject: {fileID: 6518060779524320833}
+    cachedImage: {fileID: 0}
   - button: {fileID: 8313031315771035735}
-    gameObject: {fileID: 1654037836373493073}
+    sectionObject: {fileID: 1654037836373493073}
+    cachedImage: {fileID: 0}
   - button: {fileID: 5218352871927866911}
-    gameObject: {fileID: 3632390105352518850}
+    sectionObject: {fileID: 3632390105352518850}
+    cachedImage: {fileID: 0}
   - button: {fileID: 4812739722596562916}
-    gameObject: {fileID: 4034143481780935479}
+    sectionObject: {fileID: 4034143481780935479}
+    cachedImage: {fileID: 0}
   firstButton: {fileID: 2371277057875620256}
   enableColor: 1
   selectedColor: {r: 1, g: 1, b: 1, a: 1}

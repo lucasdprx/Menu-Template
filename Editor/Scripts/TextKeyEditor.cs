@@ -69,7 +69,7 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
             {
                 EditorGUILayout.Space(4);
                 EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
-                EditorGUILayout.HelpBox(Runtime.Settings.Localization.Localization.Read(keyProperty.stringValue), MessageType.None);
+                EditorGUILayout.HelpBox(Runtime.Settings.Localization.LocalizationManager.Read(keyProperty.stringValue), MessageType.None);
             }
         }
 

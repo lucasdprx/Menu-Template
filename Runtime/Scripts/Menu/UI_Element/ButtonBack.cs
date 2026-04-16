@@ -1,31 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace PTRKGames.MenuTemplate.Runtime.UI_Element
 {
     [RequireComponent(typeof(Button))]
     public class ButtonBack : MonoBehaviour
     {
-        private Button button;
-        private void Awake()
+        protected Button button;
+
+        protected virtual void Awake()
         {
             button = GetComponent<Button>();
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             //InputHandler.onEscape.canceled += OnBack;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             //InputHandler.onEscape.canceled -= OnBack;
         }
 
-        private void OnBack()
+        protected virtual void OnBack(InputAction.CallbackContext context)
         {
-            if (button.interactable)
+            if (button != null && button.interactable)
+            {
                 button.onClick.Invoke();
+            }
+        }
+        
+        public virtual void OnBack()
+        {
+            if (button != null && button.interactable)
+            {
+                button.onClick.Invoke();
+            }
         }
     }
 }

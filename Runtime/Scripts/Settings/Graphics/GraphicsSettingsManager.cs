@@ -6,9 +6,9 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 {
     public class GraphicsSettingsManager : MonoBehaviour
     {
-        public static Resolution[] resolutions;
+        private Resolution[] resolutions;
 
-        public static Resolution[] Resolutions
+        public virtual Resolution[] Resolutions
         {
             get
             {
@@ -25,7 +25,7 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             }
         }
 
-        public static void SetResolution(int index)
+        public virtual void SetResolution(int index)
         {
             if (index < 0 || index >= Resolutions.Length)
             {
@@ -36,18 +36,16 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             Resolution resolution = Resolutions[index];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         
-            PlayerPrefs.SetInt(SettingsKeys.ResolutionIndex, index);
-            PlayerPrefs.Save();
+            SaveInt(SettingsKeys.ResolutionIndex, index);
         }
         
-        public static void SetFullScreen(bool isFullScreen)
+        public virtual void SetFullScreen(bool isFullScreen)
         {
             Screen.fullScreen = isFullScreen;
-            PlayerPrefs.SetInt(SettingsKeys.FullScreen, isFullScreen ? 1 : 0);
-            PlayerPrefs.Save();
+            SaveInt(SettingsKeys.FullScreen, isFullScreen ? 1 : 0);
         }
 
-        public static void SetFramerateLimit(int dropdownIndex)
+        public virtual void SetFramerateLimit(int dropdownIndex)
         {
             FramerateOption option = (FramerateOption)dropdownIndex;
 
@@ -82,14 +80,20 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
                     return;
             }
 
-            PlayerPrefs.SetInt(SettingsKeys.FramerateIndex, dropdownIndex);
+            SaveInt(SettingsKeys.FramerateIndex, dropdownIndex);
+        }
+
+        protected virtual void SaveInt(string key, int value)
+        {
+            PlayerPrefs.SetInt(key, value);
             PlayerPrefs.Save();
         }
 
-        public static int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : 0;
-        public static bool GetSavedFullScreen() => PlayerPrefs.HasKey(SettingsKeys.FullScreen) ? PlayerPrefs.GetInt(SettingsKeys.FullScreen) == 1 : Screen.fullScreen;
-        public static int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : (int)FramerateOption.FPS_120; // Default 120 FPS
-
+        public virtual int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : 0;
+        
+        public virtual bool GetSavedFullScreen() => PlayerPrefs.HasKey(SettingsKeys.FullScreen) ? PlayerPrefs.GetInt(SettingsKeys.FullScreen) == 1 : Screen.fullScreen;
+        
+        public virtual int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : (int)FramerateOption.FPS_120;
 
         public enum FramerateOption
         {

@@ -1,33 +1,41 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace PTRKGames.MenuTemplate.Runtime.Managers
 {
     public class MainMenuManager : MonoBehaviour
     {
-        [SerializeField] private Button firstButton;
+        [SerializeField] protected Button firstButton;
         
-        private InputDevice currentDevice;
-        private Action<InputDevice> onDeviceChange;
-        private Button currentSelectable;
+        protected InputDevice currentDevice;
+        protected Button currentSelectable;
+
+        public static event Action<InputDevice> OnDeviceChanged;
         
-        private void Awake()
+        protected virtual void Awake()
         {
             InputSystem.onActionChange += OnActionChange;
-            onDeviceChange += OnDeviceChange;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
-            currentSelectable  = firstButton;
+            currentSelectable = firstButton;
         }
 
-        private void OnActionChange(object action, InputActionChange change)
+        protected virtual void OnDestroy()
+        {
+            InputSystem.onActionChange -= OnActionChange;
+        }
+
+        protected virtual void OnActionChange(object action, InputActionChange change)
         {
             if (change != InputActionChange.ActionPerformed)
                 return;
@@ -39,12 +47,14 @@ namespace PTRKGames.MenuTemplate.Runtime.Managers
             if (currentDevice != device)
             {
                 currentDevice = device;
-                onDeviceChange?.Invoke(device);
+                HandleDeviceChange(device);
             }
         }
 
-        private void OnDeviceChange(InputDevice device)
+        protected virtual void HandleDeviceChange(InputDevice device)
         {
+            OnDeviceChanged?.Invoke(device);
+
             if (device is Gamepad)
             {
                 if (currentSelectable != null)
@@ -58,19 +68,21 @@ namespace PTRKGames.MenuTemplate.Runtime.Managers
             }
         }
 
-        public void LoadScene(int index)
+        public virtual void LoadScene(int index)
         {
             SceneManager.LoadScene(index);
         }
-        public void QuitGame()
+        
+        public virtual void QuitGame()
         {
             #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
-            #endif
+            #else
             Application.Quit();
+            #endif
         }
 
-        public void SelectElement(Selectable selectable)
+        public virtual void SelectElement(Selectable selectable)
         {
             SetCurrentSelectable(selectable);
             if (currentDevice is Gamepad)
@@ -79,11 +91,10 @@ namespace PTRKGames.MenuTemplate.Runtime.Managers
             }
         }
 
-        public void SetCurrentSelectable(Selectable selectable)
+        public virtual void SetCurrentSelectable(Selectable selectable)
         {
             if (selectable is Button btn)
                 currentSelectable = btn;
         }
     }
 }
-

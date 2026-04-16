@@ -8,55 +8,79 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 {
     public class GraphicsSettingsUI : MonoBehaviour
     {
+        [SerializeField] protected GraphicsSettingsManager graphicsSettingsManager;
+        
         [Header("Graphics UI")]
-        [SerializeField] private TMP_Dropdown dropdownResolution;
-        [SerializeField] private Toggle toggleFullScreen;
-        [SerializeField] private TMP_Dropdown dropdownFramerate;
+        [SerializeField] protected TMP_Dropdown dropdownResolution;
+        [SerializeField] protected Toggle toggleFullScreen;
+        [SerializeField] protected TMP_Dropdown dropdownFramerate;
 
-        private void Start()
+        protected virtual void Start()
         {
+            if (graphicsSettingsManager == null)
+            {
+                Debug.LogError("GraphicsSettingsManager reference is missing on " + gameObject.name);
+                return;
+            }
+            
             InitializeUI();
             SubscribeEvents();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             UnsubscribeEvents();
         }
 
-        private void InitializeUI()
+        protected virtual void InitializeUI()
         {
-            if (dropdownResolution != null)
-            {
-                dropdownResolution.ClearOptions();
-                List<string> options = GraphicsSettingsManager.Resolutions.Select(res => $"{res.width}x{res.height}").ToList();
-                dropdownResolution.AddOptions(options);
-                dropdownResolution.value = GraphicsSettingsManager.GetSavedResolutionIndex();
-            }
-            if (dropdownFramerate != null)
-            {
-                dropdownFramerate.ClearOptions();
-                List<string> framerateOptions = new() { "Vsync", "30 FPS", "60 FPS", "120 FPS", "240 FPS", "Unlimited" };
-                dropdownFramerate.AddOptions(framerateOptions);
-                dropdownFramerate.value = GraphicsSettingsManager.GetSavedFramerateIndex();
-            }
+            InitResolutionDropdown();
+            InitFramerateDropdown();
 
             if (toggleFullScreen != null) 
-                toggleFullScreen.isOn = GraphicsSettingsManager.GetSavedFullScreen();
+                toggleFullScreen.isOn = graphicsSettingsManager.GetSavedFullScreen();
         }
 
-        private void SubscribeEvents()
+        protected virtual void InitResolutionDropdown()
         {
-            dropdownResolution?.onValueChanged.AddListener(GraphicsSettingsManager.SetResolution);
-            toggleFullScreen?.onValueChanged.AddListener(GraphicsSettingsManager.SetFullScreen);
-            dropdownFramerate?.onValueChanged.AddListener(GraphicsSettingsManager.SetFramerateLimit);
+            if (dropdownResolution == null) 
+                return;
+
+            dropdownResolution.ClearOptions();
+            List<string> options = graphicsSettingsManager.Resolutions.Select(res => $"{res.width}x{res.height}").ToList();
+            dropdownResolution.AddOptions(options);
+            dropdownResolution.value = graphicsSettingsManager.GetSavedResolutionIndex();
+            dropdownResolution.RefreshShownValue();
         }
 
-        private void UnsubscribeEvents()
+        protected virtual void InitFramerateDropdown()
         {
-            dropdownResolution?.onValueChanged.RemoveListener(GraphicsSettingsManager.SetResolution);
-            toggleFullScreen?.onValueChanged.RemoveListener(GraphicsSettingsManager.SetFullScreen);
-            dropdownFramerate?.onValueChanged.RemoveListener(GraphicsSettingsManager.SetFramerateLimit);
+            if (dropdownFramerate == null) 
+                return;
+
+            dropdownFramerate.ClearOptions();
+            dropdownFramerate.AddOptions(GetFramerateStringOptions());
+            dropdownFramerate.value = graphicsSettingsManager.GetSavedFramerateIndex();
+            dropdownFramerate.RefreshShownValue();
+        }
+
+        protected virtual List<string> GetFramerateStringOptions()
+        {
+            return new List<string> { "Vsync", "30 FPS", "60 FPS", "120 FPS", "240 FPS", "Unlimited" };
+        }
+
+        protected virtual void SubscribeEvents()
+        {
+            dropdownResolution?.onValueChanged.AddListener(graphicsSettingsManager.SetResolution);
+            toggleFullScreen?.onValueChanged.AddListener(graphicsSettingsManager.SetFullScreen);
+            dropdownFramerate?.onValueChanged.AddListener(graphicsSettingsManager.SetFramerateLimit);
+        }
+
+        protected virtual void UnsubscribeEvents()
+        {
+            dropdownResolution?.onValueChanged.RemoveListener(graphicsSettingsManager.SetResolution);
+            toggleFullScreen?.onValueChanged.RemoveListener(graphicsSettingsManager.SetFullScreen);
+            dropdownFramerate?.onValueChanged.RemoveListener(graphicsSettingsManager.SetFramerateLimit);
         }
     }
 }

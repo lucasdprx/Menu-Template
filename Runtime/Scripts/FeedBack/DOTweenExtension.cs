@@ -20,7 +20,7 @@ namespace PTRKGames.MenuTemplate.Runtime.FeedBack
             return DOTween.To(() => text.color, x => text.color = x, endValue, duration);
         }
         
-        public static TweenerCore<Color, Color, ColorOptions> DOColor(this Image image, Color endValue, float duration)
+        public static TweenerCore<Color, Color, ColorOptions> DOColor(this Graphic image, Color endValue, float duration)
         {
             return DOTween.To(() => image.color, x => image.color = x, endValue, duration);
         }

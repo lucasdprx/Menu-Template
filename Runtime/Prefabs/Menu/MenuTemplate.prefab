@@ -155,6 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1006910102572508749}
   - component: {fileID: 7364971555252842530}
+  - component: {fileID: 9132527175968787591}
   m_Layer: 5
   m_Name: Localization
   m_TagString: Untagged
@@ -193,6 +194,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f778d8fde5ec7c47bc95540436b28a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Localization
+  languageFolder: Localization
+  availableLanguages:
+  - code: fr
+    displayName: "Fran\xE7ais"
+  - code: en
+    displayName: English
+  - code: de
+    displayName: Deutsch
+  - code: es
+    displayName: "Espa\xF1ol"
+  - code: it
+    displayName: Italiano
+--- !u!114 &9132527175968787591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089497929160546033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874a5c4e45be60a48bf40e559ca4acdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PTRKGames.MenuTemplate::PTRKGames.MenuTemplate.Runtime.Settings.Localization.LocalizationUI
+  localizationManager: {fileID: 7364971555252842530}
   dropdown: {fileID: 4633157486743941995}
 --- !u!1 &4307672850894738529
 GameObject:
@@ -422,6 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45022fff55a9b94986729d7ca0ceff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Menu.Settings.Graphics.GraphicsSettingsUI
+  graphicsSettingsManager: {fileID: 8849610296387298962}
   dropdownResolution: {fileID: 6224919853118883705}
   toggleFullScreen: {fileID: 2952896143747030969}
   dropdownFramerate: {fileID: 7617850256619038364}
@@ -1122,7 +1149,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2012566372829921682, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.8468577
+      objectReference: {fileID: 0}
+    - target: {fileID: 2012566372829921682, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_Value
+      value: -5.5298743
       objectReference: {fileID: 0}
     - target: {fileID: 2191888108926124263, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1408,12 +1439,20 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 26
       objectReference: {fileID: 0}
+    - target: {fileID: 5037708888569434018, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 724.99963
+      objectReference: {fileID: 0}
     - target: {fileID: 5093228269275877259, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5093228269275877259, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093228269275877259, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5218352871927866911, guid: a0eeccc681efedd43a62f0d9f33bbcda, type: 3}

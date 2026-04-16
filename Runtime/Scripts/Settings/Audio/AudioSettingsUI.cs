@@ -6,14 +6,14 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Audio
 {
     public class AudioSettingsUI : MonoBehaviour
     {
-        [SerializeField] private AudioSettingsManager audioManager;
+        [SerializeField] protected AudioSettingsManager audioManager;
         
         [Header("Audio UI")]
-        [SerializeField] private Slider sliderGeneral;
-        [SerializeField] private Slider sliderMusic;
-        [SerializeField] private Slider sliderSfx;
+        [SerializeField] protected Slider sliderGeneral;
+        [SerializeField] protected Slider sliderMusic;
+        [SerializeField] protected Slider sliderSfx;
 
-        private void Start()
+        protected virtual void Start()
         {
             if (audioManager == null) 
             {
@@ -25,19 +25,19 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Audio
             SubscribeEvents();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             UnsubscribeEvents();
         }
 
-        private void InitializeUI()
+        protected virtual void InitializeUI()
         {
             InitSlider(sliderGeneral, SettingsKeys.General);
             InitSlider(sliderMusic, SettingsKeys.Music);
             InitSlider(sliderSfx, SettingsKeys.Sfx);
         }
 
-        private void InitSlider(Slider slider, string key)
+        protected virtual void InitSlider(Slider slider, string key)
         {
             if (slider == null || string.IsNullOrEmpty(key))
             {
@@ -50,14 +50,14 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Audio
             slider.value = audioManager.GetSavedVolume(key);
         }
 
-        private void SubscribeEvents()
+        protected virtual void SubscribeEvents()
         {
             sliderGeneral?.onValueChanged.AddListener(audioManager.SetVolumeGeneral);
             sliderMusic?.onValueChanged.AddListener(audioManager.SetVolumeMusic);
             sliderSfx?.onValueChanged.AddListener(audioManager.SetVolumeSfx);
         }
 
-        private void UnsubscribeEvents()
+        protected virtual void UnsubscribeEvents()
         {
             sliderGeneral?.onValueChanged.RemoveListener(audioManager.SetVolumeGeneral);
             sliderMusic?.onValueChanged.RemoveListener(audioManager.SetVolumeMusic);
