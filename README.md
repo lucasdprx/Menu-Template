@@ -4,7 +4,7 @@ A ready-to-use user interface (UI) menu system for Unity. It provides a solid fo
 
 ## Technical Requirements
 
-This package is designed for **Unity 6000.0** and relies on the following technologies:
+This package is designed for **Unity 6** and relies on the following technologies:
 * **Input System** (`com.unity.inputsystem`) for input management and key remapping.
 * **Newtonsoft JSON** (`com.unity.nuget.newtonsoft-json`) for JSON data handling (settings serialization and localization).
 
