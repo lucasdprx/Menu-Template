@@ -36,8 +36,17 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
 
             DrawKeyField();
             DrawValidation();
-            DrawTranslationsEditor();
-            DrawAddLanguage();
+
+            if (serializedObject.isEditingMultipleObjects)
+            {
+                EditorGUILayout.Space(10);
+                EditorGUILayout.HelpBox("L'édition des traductions JSON est désactivée lors d'une sélection multiple pour éviter d'écraser les mauvaises clés.", MessageType.Info);
+            }
+            else
+            {
+                DrawTranslationsEditor();
+                DrawAddLanguage();
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -80,7 +89,7 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
 
             if (languageFileByCode.Count == 0)
             {
-                EditorGUILayout.HelpBox("No language files were found in Assets/Resources/Localization.", MessageType.Warning);
+                EditorGUILayout.HelpBox("No language files were found in Assets/Resources/Localization or Package default folder.", MessageType.Warning);
                 return;
             }
 
@@ -164,8 +173,6 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
                     updatedCount++;
                 }
 
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
 
                 applyMessage = $"Apply complete: {updatedCount} files updated.";
                 applyMessageType = MessageType.Info;
@@ -179,24 +186,33 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
 
         private static IEnumerable<string> GetLanguageJsonPaths()
         {
-            string directory = Path.Combine(Application.dataPath, "Resources", "Localization");
-            if (!Directory.Exists(directory))
-                directory = Path.Combine(Application.dataPath + "/Menu-Template/", "Runtime", "DefaultTranslations");
-            return !Directory.Exists(directory) ? Array.Empty<string>() : Directory.GetFiles(directory, "*.json", SearchOption.TopDirectoryOnly);
+            string userDirectory = Path.Combine(Application.dataPath, "Resources", "Localization");
+            if (Directory.Exists(userDirectory))
+            {
+                return Directory.GetFiles(userDirectory, "*.json", SearchOption.TopDirectoryOnly);
+            }
+
+            string[] folderGuids = AssetDatabase.FindAssets("DefaultTranslations t:Folder");
+            if (folderGuids.Length > 0)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(folderGuids[0]);
+                string absolutePath = Path.GetFullPath(assetPath);
+
+                if (Directory.Exists(absolutePath))
+                {
+                    return Directory.GetFiles(absolutePath, "*.json", SearchOption.TopDirectoryOnly);
+                }
+            }
+
+            return Array.Empty<string>();
         }
 
         private static Dictionary<string, string> ReadJsonDictionary(string filePath)
         {
-            if (!File.Exists(filePath))
-            {
-                return new Dictionary<string, string>();
-            }
+            if (!File.Exists(filePath)) return new Dictionary<string, string>();
 
             string json = File.ReadAllText(filePath);
-            if (string.IsNullOrWhiteSpace(json))
-            {
-                return new Dictionary<string, string>();
-            }
+            if (string.IsNullOrWhiteSpace(json)) return new Dictionary<string, string>();
 
             Dictionary<string, string> parsed = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             return parsed ?? new Dictionary<string, string>();
@@ -209,10 +225,15 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
 
             if (!normalizedFilePath.StartsWith(normalizedDataPath, StringComparison.OrdinalIgnoreCase))
             {
+                if (normalizedFilePath.Contains("/Packages/"))
+                {
+                    int index = normalizedFilePath.IndexOf("/Packages/", StringComparison.OrdinalIgnoreCase);
+                    return normalizedFilePath.Substring(index + 1);
+                }
                 return string.Empty;
             }
 
-            return "Assets" + normalizedFilePath[normalizedDataPath.Length..];
+            return "Assets" + normalizedFilePath.Substring(normalizedDataPath.Length);
         }
 
         private void DrawAddLanguage()
@@ -272,5 +293,3 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Localization
     }
 }
 #endif
-
-

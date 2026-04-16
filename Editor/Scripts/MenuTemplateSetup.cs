@@ -8,38 +8,31 @@ namespace PTRKGames.MenuTemplate.Editor
 {
     public static class MenuTemplateSetup
     {
-        private const string PrefabPath = "Packages/com.ptrkgames.menu-template/Runtime/Prefabs/Menu/MenuTemplate.prefab";
-        
-        private const string SourceFolder = "Packages/com.ptrkgames.menu-template/Runtime/DefaultTranslations";
-        private const string SourceFolderAssets = "Assets/Menu-Template/Runtime/DefaultTranslations";
+        private const string MenuPrefabGUID = "1b4d50fac1d0ef540a2dc0139b18b474";
         private const string TargetFolder = "Assets/Resources/Localization";
 
         [MenuItem("Menu Template/Create Menu Template", false, 10)]
         public static void CreateMenuInScene()
         {
-            GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
+            string prefabPath = AssetDatabase.GUIDToAssetPath(MenuPrefabGUID);
+            GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
             if (prefabAsset == null)
             {
-                prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab");
-                Debug.Log("[Menu Template] Alternative path attempted : Assets/Menu-Template/Runtime/Prefabs/Menu/MenuTemplate.prefab : " + (prefabAsset != null ? "Reussi" : "Echec"));
-            }
-
-            if (prefabAsset == null)
-            {
-                Debug.LogError($"[Menu Template] Unable to load the Prefab. File not found at : {PrefabPath}");
+                Debug.LogError($"[Menu Template] Impossible de trouver le Prefab avec le GUID : {MenuPrefabGUID}. Vérifiez votre fichier .meta.");
                 return;
             }
 
             InstallDefaultTranslations();
             GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefabAsset);
             instance.transform.SetParent(null);
+
             Undo.RegisterCreatedObjectUndo(instance, "Create Menu Template");
             Selection.activeObject = instance;
-            
-            if (Object.FindFirstObjectByType<EventSystem>() == null)
+
+            if (Object.FindAnyObjectByType<EventSystem>() == null)
             {
-                GameObject eventSystemGO = new("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
+                GameObject eventSystemGO = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
                 Undo.RegisterCreatedObjectUndo(eventSystemGO, "Create Event System");
             }
         }
@@ -47,25 +40,21 @@ namespace PTRKGames.MenuTemplate.Editor
         private static void InstallDefaultTranslations()
         {
             if (!AssetDatabase.IsValidFolder("Assets/Resources"))
-            {
                 AssetDatabase.CreateFolder("Assets", "Resources");
-            }
-            
+
             if (!AssetDatabase.IsValidFolder(TargetFolder))
-            {
                 AssetDatabase.CreateFolder("Assets/Resources", "Localization");
-            }
 
-            string[] guids = AssetDatabase.FindAssets("t:TextAsset", new[] { SourceFolder });
-            if (guids.Length == 0)
-            {
-                guids = AssetDatabase.FindAssets("t:TextAsset", new[] { SourceFolderAssets });
-            }
+            string[] folderGuids = AssetDatabase.FindAssets("DefaultTranslations t:Folder");
+            if (folderGuids.Length == 0) 
+                return;
 
-            foreach (string guid in guids)
+            string sourceFolderPath = AssetDatabase.GUIDToAssetPath(folderGuids[0]);
+            string[] jsonGuids = AssetDatabase.FindAssets("t:TextAsset", new[] { sourceFolderPath });
+
+            foreach (string guid in jsonGuids)
             {
                 string sourcePath = AssetDatabase.GUIDToAssetPath(guid);
-                
                 if (sourcePath.EndsWith(".json"))
                 {
                     string fileName = Path.GetFileName(sourcePath);

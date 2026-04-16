@@ -3,8 +3,6 @@ using PTRKGames.MenuTemplate.Runtime.Settings.Rebind;
 using UnityEditor;
 using UnityEngine;
 
-////TODO: support multi-object editing
-
 namespace PTRKGames.MenuTemplate.Editor.Settings.Rebind
 {
     /// <summary>
@@ -12,9 +10,25 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Rebind
     /// picking the binding which to rebind.
     /// </summary>
     [CustomEditor(typeof(RebindActionUI))]
+    [CanEditMultipleObjects]
     public class RebindActionUIEditor : UnityEditor.Editor
     {
-        protected void OnEnable()
+        private SerializedProperty m_BindingTextProperty;
+        private SerializedProperty m_RebindOverlayProperty;
+        private SerializedProperty m_RebindTextProperty;
+        private SerializedProperty m_RebindInfoProperty;
+        private SerializedProperty m_RebindCancelButtonProperty;
+        private SerializedProperty m_RebindTimeoutProperty;
+        private SerializedProperty m_RebindStartEventProperty;
+        private SerializedProperty m_RebindStopEventProperty;
+        private SerializedProperty m_UpdateBindingUIEventProperty;
+
+        private GUIContent m_UILabel = new GUIContent("UI");
+        private GUIContent m_RebindOptionsLabel = new GUIContent("Rebind Options");
+        private GUIContent m_EventsLabel = new GUIContent("Events");
+        private BindingUI m_BindingUI;
+
+        protected virtual void OnEnable()
         {
             m_BindingTextProperty = serializedObject.FindProperty("m_BindingText");
             m_RebindOverlayProperty = serializedObject.FindProperty("m_RebindOverlay");
@@ -33,12 +47,17 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Rebind
         {
             EditorGUI.BeginChangeCheck();
 
-            // Binding section.
-            m_BindingUI.Draw();
+            if (serializedObject.isEditingMultipleObjects)
+            {
+                EditorGUILayout.HelpBox("La sélection de l'Action à remapper est désactivée lors d'une sélection multiple pour éviter de corrompre vos boutons. Éditez vos boutons un par un pour changer la touche.", MessageType.Info);
+            }
+            else
+            {
+                m_BindingUI.Draw();
+            }
 
-            // UI section.
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(m_UILabel);
+            EditorGUILayout.LabelField(m_UILabel, EditorStyles.boldLabel);
             using (new EditorGUI.IndentLevelScope())
             {
                 EditorGUILayout.PropertyField(m_BindingTextProperty);
@@ -48,17 +67,15 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Rebind
                 EditorGUILayout.PropertyField(m_RebindCancelButtonProperty);
             }
 
-            // Rebind options section.
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(m_RebindOptionsLabel);
+            EditorGUILayout.LabelField(m_RebindOptionsLabel, EditorStyles.boldLabel);
             using (new EditorGUI.IndentLevelScope())
             {
                 EditorGUILayout.PropertyField(m_RebindTimeoutProperty);
             }
 
-            // Events section.
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(m_EventsLabel);
+            EditorGUILayout.LabelField(m_EventsLabel, EditorStyles.boldLabel);
             using (new EditorGUI.IndentLevelScope())
             {
                 EditorGUILayout.PropertyField(m_RebindStartEventProperty);
@@ -69,24 +86,13 @@ namespace PTRKGames.MenuTemplate.Editor.Settings.Rebind
             if (EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
-                m_BindingUI.Refresh();
+
+                if (!serializedObject.isEditingMultipleObjects)
+                {
+                    m_BindingUI.Refresh();
+                }
             }
         }
-
-        private SerializedProperty m_BindingTextProperty;
-        private SerializedProperty m_RebindOverlayProperty;
-        private SerializedProperty m_RebindTextProperty;
-        private SerializedProperty m_RebindInfoProperty;
-        private SerializedProperty m_RebindCancelButtonProperty;
-        private SerializedProperty m_RebindTimeoutProperty;
-        private SerializedProperty m_RebindStartEventProperty;
-        private SerializedProperty m_RebindStopEventProperty;
-        private SerializedProperty m_UpdateBindingUIEventProperty;
-
-        private GUIContent m_UILabel = new GUIContent("UI");
-        private GUIContent m_RebindOptionsLabel = new GUIContent("Rebind Options");
-        private GUIContent m_EventsLabel = new GUIContent("Events");
-        private BindingUI m_BindingUI;
     }
 }
 #endif

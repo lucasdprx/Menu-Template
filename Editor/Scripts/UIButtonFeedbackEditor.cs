@@ -1,45 +1,35 @@
 ﻿using PTRKGames.MenuTemplate.Runtime.FeedBack;
 using UnityEditor;
 
-
 namespace PTRKGames.MenuTemplate.Editor.FeedBack
 {
-    #if DOTWEEN
-    // Custom inspector pour le script UIButtonFeedback
-    // Ce script a été généré par une IA
+#if DOTWEEN
     [CustomEditor(typeof(UIButtonFeedback))]
+    [CanEditMultipleObjects]
     public class UIButtonFeedbackEditor : UnityEditor.Editor
     {
-        // État d'ouverture des menus déroulants
         private bool showTransform;
         private bool showImage;
         private bool showText;
         private bool showPunch;
 
-        // Transform
         private SerializedProperty enableScaleAnimation, scaleMultiplier, scaleDuration, scaleEase;
-        // Image
         private SerializedProperty enableImageAnimation, highlightedImageColor, imageColorDuration, imageColorEase;
-        // Text
         private SerializedProperty enableTextAnimation, highlightedTextColor, textColorEase, textColorDuration, fontSizeMultiplier, fontSizeEase;
-        // Punch
         private SerializedProperty enablePunchAnimation, punchStrength, punchDuration, punchVibrato, punchElasticity, punchEase;
 
         private void OnEnable()
         {
-            // Initialisation des propriétés Transform
             enableScaleAnimation = serializedObject.FindProperty("enableScaleAnimation");
             scaleMultiplier = serializedObject.FindProperty("scaleMultiplier");
             scaleDuration = serializedObject.FindProperty("scaleDuration");
             scaleEase = serializedObject.FindProperty("scaleEase");
 
-            // Initialisation des propriétés Image
             enableImageAnimation = serializedObject.FindProperty("enableImageAnimation");
             highlightedImageColor = serializedObject.FindProperty("highlightedImageColor");
             imageColorDuration = serializedObject.FindProperty("imageColorDuration");
             imageColorEase = serializedObject.FindProperty("imageColorEase");
 
-            // Initialisation des propriétés Text
             enableTextAnimation = serializedObject.FindProperty("enableTextAnimation");
             highlightedTextColor = serializedObject.FindProperty("highlightedTextColor");
             textColorEase = serializedObject.FindProperty("textColorEase");
@@ -47,7 +37,6 @@ namespace PTRKGames.MenuTemplate.Editor.FeedBack
             fontSizeMultiplier = serializedObject.FindProperty("fontSizeMultiplier");
             fontSizeEase = serializedObject.FindProperty("fontSizeEase");
 
-            // Initialisation des propriétés Punch
             enablePunchAnimation = serializedObject.FindProperty("enablePunchAnimation");
             punchStrength = serializedObject.FindProperty("punchStrength");
             punchDuration = serializedObject.FindProperty("punchDuration");
@@ -71,7 +60,6 @@ namespace PTRKGames.MenuTemplate.Editor.FeedBack
                     EditorGUILayout.PropertyField(scaleDuration);
                     EditorGUILayout.PropertyField(scaleEase);
                 }
-
                 EditorGUI.indentLevel--;
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
@@ -128,15 +116,16 @@ namespace PTRKGames.MenuTemplate.Editor.FeedBack
             serializedObject.ApplyModifiedProperties();
         }
     }
-    #else
+#else
     [CustomEditor(typeof(UIButtonFeedback))]
+    [CanEditMultipleObjects] // Ajouté ici aussi pour la cohérence
     public class UIButtonFeedbackEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
-            EditorGUILayout.HelpBox("L'animation des boutons nécessite le package DOTween.\n\nInstallez DOTween pour activer le feedback visuel'.", MessageType.Warning);
+            EditorGUILayout.HelpBox("L'animation des boutons nécessite le package DOTween.\n\nInstallez DOTween pour activer le feedback visuel.", MessageType.Warning);
             DrawDefaultInspector();
         }
     }
-    #endif
+#endif
 }
