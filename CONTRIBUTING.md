@@ -25,7 +25,7 @@ By participating in this project, you agree to maintain a respectful and profess
 4. Submit a Pull Request with a clear description of the changes.
 
 ## Development Environment
-* Developed with **Unity 6000.0.x**. 
+* Developed with **Unity 6000.x**. 
 * Ensure all dependencies (Input System, Newtonsoft JSON) are present in your test project.
 
 ## License
