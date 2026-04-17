@@ -55,7 +55,7 @@ namespace PTRKGames.MenuTemplate.Runtime.Managers
         {
             OnDeviceChanged?.Invoke(device);
 
-            if (device is Gamepad)
+            if (device is Gamepad or Keyboard)
             {
                 if (currentSelectable != null)
                 {
@@ -85,7 +85,7 @@ namespace PTRKGames.MenuTemplate.Runtime.Managers
         public virtual void SelectElement(Selectable selectable)
         {
             SetCurrentSelectable(selectable);
-            if (currentDevice is Gamepad)
+            if (currentDevice is Gamepad or Keyboard)
             {
                 selectable.Select();
             }
