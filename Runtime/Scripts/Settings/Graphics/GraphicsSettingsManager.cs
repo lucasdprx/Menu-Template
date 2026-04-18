@@ -17,8 +17,6 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
                     resolutions = Screen.resolutions
                         .GroupBy(r => new { r.width, r.height })
                         .Select(g => g.First())
-                        .OrderByDescending(r => r.width)
-                        .ThenByDescending(r => r.height)
                         .ToArray();
                 }
                 return resolutions;
@@ -89,7 +87,7 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             PlayerPrefs.Save();
         }
 
-        public virtual int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : 0;
+        public virtual int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : Resolutions.Length - 1;
         
         public virtual bool GetSavedFullScreen() => PlayerPrefs.HasKey(SettingsKeys.FullScreen) ? PlayerPrefs.GetInt(SettingsKeys.FullScreen) == 1 : Screen.fullScreen;
         

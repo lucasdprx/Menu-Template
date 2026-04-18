@@ -1,6 +1,6 @@
+using PTRKGames.MenuTemplate.Runtime.UI_Element;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +11,9 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
         [SerializeField] protected GraphicsSettingsManager graphicsSettingsManager;
         
         [Header("Graphics UI")]
-        [SerializeField] protected TMP_Dropdown dropdownResolution;
+        [SerializeField] protected OptionSelector selectorResolution;
         [SerializeField] protected Toggle toggleFullScreen;
-        [SerializeField] protected TMP_Dropdown dropdownFramerate;
+        [SerializeField] protected OptionSelector selectorFramerate;
 
         protected virtual void Start()
         {
@@ -43,25 +43,23 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 
         protected virtual void InitResolutionDropdown()
         {
-            if (dropdownResolution == null) 
+            if (selectorResolution == null) 
                 return;
 
-            dropdownResolution.ClearOptions();
+            selectorResolution.ClearOptions();
             List<string> options = graphicsSettingsManager.Resolutions.Select(res => $"{res.width}x{res.height}").ToList();
-            dropdownResolution.AddOptions(options);
-            dropdownResolution.value = graphicsSettingsManager.GetSavedResolutionIndex();
-            dropdownResolution.RefreshShownValue();
+            selectorResolution.AddOptions(options);
+            selectorResolution.SetValue(graphicsSettingsManager.GetSavedResolutionIndex());
         }
 
         protected virtual void InitFramerateDropdown()
         {
-            if (dropdownFramerate == null) 
+            if (selectorFramerate == null) 
                 return;
 
-            dropdownFramerate.ClearOptions();
-            dropdownFramerate.AddOptions(GetFramerateStringOptions());
-            dropdownFramerate.value = graphicsSettingsManager.GetSavedFramerateIndex();
-            dropdownFramerate.RefreshShownValue();
+            selectorFramerate.ClearOptions();
+            selectorFramerate.AddOptions(GetFramerateStringOptions());
+            selectorFramerate.SetValue(graphicsSettingsManager.GetSavedFramerateIndex());
         }
 
         protected virtual List<string> GetFramerateStringOptions()
@@ -71,16 +69,16 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 
         protected virtual void SubscribeEvents()
         {
-            dropdownResolution?.onValueChanged.AddListener(graphicsSettingsManager.SetResolution);
+            selectorResolution?.onValueChanged.AddListener(graphicsSettingsManager.SetResolution);
             toggleFullScreen?.onValueChanged.AddListener(graphicsSettingsManager.SetFullScreen);
-            dropdownFramerate?.onValueChanged.AddListener(graphicsSettingsManager.SetFramerateLimit);
+            selectorFramerate?.onValueChanged.AddListener(graphicsSettingsManager.SetFramerateLimit);
         }
 
         protected virtual void UnsubscribeEvents()
         {
-            dropdownResolution?.onValueChanged.RemoveListener(graphicsSettingsManager.SetResolution);
+            selectorResolution?.onValueChanged.RemoveListener(graphicsSettingsManager.SetResolution);
             toggleFullScreen?.onValueChanged.RemoveListener(graphicsSettingsManager.SetFullScreen);
-            dropdownFramerate?.onValueChanged.RemoveListener(graphicsSettingsManager.SetFramerateLimit);
+            selectorFramerate?.onValueChanged.RemoveListener(graphicsSettingsManager.SetFramerateLimit);
         }
     }
 }
