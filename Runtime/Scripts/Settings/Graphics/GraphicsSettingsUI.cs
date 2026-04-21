@@ -23,8 +23,8 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
                 return;
             }
             
-            SubscribeEvents();
             InitializeUI();
+            SubscribeEvents();
         }
 
         protected virtual void OnDestroy()
@@ -37,8 +37,11 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             InitResolutionDropdown();
             InitFramerateDropdown();
 
-            if (toggleFullScreen != null) 
+            if (toggleFullScreen != null)
+            {
                 toggleFullScreen.isOn = graphicsSettingsManager.GetSavedFullScreen();
+                graphicsSettingsManager.SetFullScreen(toggleFullScreen.isOn);
+            }
         }
 
         protected virtual void InitResolutionDropdown()
@@ -50,6 +53,7 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             List<string> options = graphicsSettingsManager.Resolutions.Select(res => $"{res.width}x{res.height}").ToList();
             selectorResolution.AddOptions(options);
             selectorResolution.SetValue(graphicsSettingsManager.GetSavedResolutionIndex());
+            graphicsSettingsManager.SetResolution(graphicsSettingsManager.GetSavedResolutionIndex());
         }
 
         protected virtual void InitFramerateDropdown()
@@ -60,6 +64,7 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             selectorFramerate.ClearOptions();
             selectorFramerate.AddOptions(GetFramerateStringOptions());
             selectorFramerate.SetValue(graphicsSettingsManager.GetSavedFramerateIndex());
+            graphicsSettingsManager.SetFramerateLimit(graphicsSettingsManager.GetSavedFramerateIndex());
         }
 
         protected virtual List<string> GetFramerateStringOptions()

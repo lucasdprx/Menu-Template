@@ -27,8 +27,11 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Localization
 
         protected virtual void UpdateText()
         {
-            if (text == null) 
+            if (text == null)
+            {
+                Debug.LogError($"TextMeshProUGUI component is missing on GameObject: {gameObject.name}");
                 return;
+            }
 
             if (string.IsNullOrEmpty(key))
             {

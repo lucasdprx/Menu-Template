@@ -71,9 +71,18 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Localization
 
         public static string Read(string key)
         {
-            if (texts == null) 
+            if (texts == null)
+            {
+                Debug.LogError("Localization texts not loaded. Make sure a LocalizationManager is present in the scene.");
                 return $"[MISSING:{key}]";
-            return texts.TryGetValue(key, out string value) ? value : $"[MISSING:{key}]";
+            }
+            if (!texts.TryGetValue(key, out string value))
+            {
+                Debug.LogWarning($"Localization key '{key}' not found in current language.");
+                return $"[MISSING:{key}]";
+            }
+
+            return value;
         }
         
 

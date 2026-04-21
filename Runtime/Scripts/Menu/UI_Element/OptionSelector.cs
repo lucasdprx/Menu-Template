@@ -21,7 +21,7 @@ namespace PTRKGames.MenuTemplate.Runtime.UI_Element
         /// </summary>
         public UnityEvent<int> onValueChanged;
 
-        protected int currentIndex = 0;
+        protected int currentIndex;
 
         protected void Awake()
         {
