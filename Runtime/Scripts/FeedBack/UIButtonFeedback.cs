@@ -94,12 +94,12 @@ namespace PTRKGames.MenuTemplate.Runtime.FeedBack
                     .SetEase(scaleEase);
 
             if (enableImageAnimation && targetGraphic != null)
-                targetGraphic.DOColor(highlightedImageColor, imageColorDuration).SetUpdate(true)
+                targetGraphic.DOColorCustom(highlightedImageColor, imageColorDuration).SetUpdate(true)
                     .SetEase(imageColorEase);
 
             if (enableTextAnimation && label != null)
             {
-                label.DOColor(highlightedTextColor, textColorDuration).SetUpdate(true).SetEase(textColorEase);
+                label.DOColorCustom(highlightedTextColor, textColorDuration).SetUpdate(true).SetEase(textColorEase);
                 label.DOFontSize(initialFontSize * fontSizeMultiplier, textColorDuration).SetUpdate(true)
                     .SetEase(fontSizeEase);
             }
@@ -117,12 +117,12 @@ namespace PTRKGames.MenuTemplate.Runtime.FeedBack
                     transform.DOScale(initialScale, scaleDuration).SetUpdate(true).SetEase(scaleEase);
 
                 if (enableImageAnimation && targetGraphic != null)
-                    targetGraphic.DOColor(initialImageColor, imageColorDuration).SetUpdate(true)
+                    targetGraphic.DOColorCustom(initialImageColor, imageColorDuration).SetUpdate(true)
                         .SetEase(imageColorEase);
 
                 if (enableTextAnimation && label != null)
                 {
-                    label.DOColor(initialTextColor, textColorDuration).SetUpdate(true).SetEase(textColorEase);
+                    label.DOColorCustom(initialTextColor, textColorDuration).SetUpdate(true).SetEase(textColorEase);
                     label.DOFontSize(initialFontSize, textColorDuration).SetUpdate(true).SetEase(fontSizeEase);
                 }
 

@@ -4,10 +4,16 @@ using PTRKGames.MenuTemplate.Runtime.Data;
 
 namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
 {
+    /// <summary>
+    /// Manages the game's graphics settings including resolution, fullscreen mode, and framerate limits.
+    /// </summary>
     public class GraphicsSettingsManager : MonoBehaviour
     {
-        private Resolution[] resolutions;
+        protected Resolution[] resolutions;
 
+        /// <summary>
+        /// Gets the list of available screen resolutions, filtered to unique width-height pairs to avoid duplicates from different refresh rates.
+        /// </summary>
         public virtual Resolution[] Resolutions
         {
             get
@@ -16,18 +22,42 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
                 {
                     resolutions = Screen.resolutions
                         .GroupBy(r => new { r.width, r.height })
-                        .Select(g => g.First())
+                        .Select(g => g.First()) 
                         .ToArray();
                 }
                 return resolutions;
             }
         }
 
+        protected virtual void Awake()
+        {
+            ApplySavedGraphics();
+        }
+
+        /// <summary>
+        /// Applies all saved graphics settings (Resolution, FullScreen, Framerate) on game boot.
+        /// </summary>
+        protected virtual void ApplySavedGraphics()
+        {
+            int resIndex = GetSavedResolutionIndex();
+            if (resIndex >= 0 && resIndex < Resolutions.Length)
+            {
+                Resolution res = Resolutions[resIndex];
+                Screen.SetResolution(res.width, res.height, GetSavedFullScreen());
+            }
+
+            SetFramerateLimit(GetSavedFramerateIndex());
+        }
+
+        /// <summary>
+        /// Sets the screen resolution based on the filtered resolutions array.
+        /// </summary>
+        /// <param name="index">The array index of the desired resolution.</param>
         public virtual void SetResolution(int index)
         {
             if (index < 0 || index >= Resolutions.Length)
             {
-                Debug.LogError($"Index invalid for resolution: {index}");
+                Debug.LogWarning($"Invalid resolution index: {index}");
                 return;
             }
     
@@ -37,12 +67,20 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
             SaveInt(SettingsKeys.ResolutionIndex, index);
         }
         
+        /// <summary>
+        /// Toggles fullscreen mode.
+        /// </summary>
+        /// <param name="isFullScreen">True for fullscreen, false for windowed.</param>
         public virtual void SetFullScreen(bool isFullScreen)
         {
             Screen.fullScreen = isFullScreen;
             SaveInt(SettingsKeys.FullScreen, isFullScreen ? 1 : 0);
         }
 
+        /// <summary>
+        /// Sets the target framerate or enables VSync.
+        /// </summary>
+        /// <param name="dropdownIndex">The index matching the FramerateOption enum.</param>
         public virtual void SetFramerateLimit(int dropdownIndex)
         {
             FramerateOption option = (FramerateOption)dropdownIndex;
@@ -71,27 +109,46 @@ namespace PTRKGames.MenuTemplate.Runtime.Settings.Graphics
                     break;
                 case FramerateOption.Unlimited:
                     QualitySettings.vSyncCount = 0;
-                    Application.targetFrameRate = -1;
+                    Application.targetFrameRate = -1; // -1 = Unlimited in Unity
                     break;
                 default:
-                    Debug.LogWarning($"Invalid Framerate : {dropdownIndex}");
+                    Debug.LogWarning($"Invalid Framerate option: {dropdownIndex}");
                     return;
             }
 
             SaveInt(SettingsKeys.FramerateIndex, dropdownIndex);
         }
 
+        /// <summary>
+        /// Saves an integer value to RAM. Data is physically written to disk on disable.
+        /// </summary>
         protected virtual void SaveInt(string key, int value)
         {
             PlayerPrefs.SetInt(key, value);
-            PlayerPrefs.Save();
         }
 
-        public virtual int GetSavedResolutionIndex() => PlayerPrefs.HasKey(SettingsKeys.ResolutionIndex) ? PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex) : Resolutions.Length - 1;
+        /// <summary>
+        /// Retrieves the saved resolution index.
+        /// </summary>
+        public virtual int GetSavedResolutionIndex() => PlayerPrefs.GetInt(SettingsKeys.ResolutionIndex, Resolutions.Length - 1);
         
-        public virtual bool GetSavedFullScreen() => PlayerPrefs.HasKey(SettingsKeys.FullScreen) ? PlayerPrefs.GetInt(SettingsKeys.FullScreen) == 1 : Screen.fullScreen;
+        /// <summary>
+        /// Retrieves the saved fullscreen state.
+        /// </summary>
+        public virtual bool GetSavedFullScreen() => PlayerPrefs.GetInt(SettingsKeys.FullScreen, Screen.fullScreen ? 1 : 0) == 1;
         
-        public virtual int GetSavedFramerateIndex() => PlayerPrefs.HasKey(SettingsKeys.FramerateIndex) ? PlayerPrefs.GetInt(SettingsKeys.FramerateIndex) : (int)FramerateOption.FPS_120;
+        /// <summary>
+        /// Retrieves the saved framerate limit index.
+        /// </summary>
+        public virtual int GetSavedFramerateIndex() => PlayerPrefs.GetInt(SettingsKeys.FramerateIndex, (int)FramerateOption.FPS_120);
+
+        /// <summary>
+        /// Commits all graphics changes to the hard drive when the manager is disabled (e.g., closing the menu).
+        /// </summary>
+        protected virtual void OnDisable()
+        {
+            PlayerPrefs.Save();
+        }
 
         public enum FramerateOption
         {
